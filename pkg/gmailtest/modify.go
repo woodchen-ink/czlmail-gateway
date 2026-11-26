@@ -92,7 +92,7 @@ func (ss *session) store(p *parser, uid bool) error {
 	ss.s.syncLocked()
 	for _, tg := range changed {
 		if !silent || ss.condstore {
-			items := fmt.Sprintf("FLAGS (%s)", strings.Join(tg.m.Flags(), " "))
+			items := fmt.Sprintf("FLAGS (%s)", strings.Join(ss.flagsOf(tg.m), " "))
 			if item == "X-GM-LABELS" {
 				items = fmt.Sprintf("X-GM-LABELS (%s)", labelList(tg.m))
 			}

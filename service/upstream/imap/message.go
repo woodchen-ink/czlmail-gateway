@@ -102,7 +102,7 @@ func toEmail(m *imapc.Message, key, threadKey string) (*model.IndexEmail, []stri
 		UpstreamThreadID: threadKey,
 		Size:             m.Size,
 		ReceivedAt:       m.InternalDate.UTC(),
-		Keywords:         mailindex.FlagsToKeywords(m.Flags).JSON(),
+		Keywords:         msgKeywords(m).JSON(),
 		InReplyTo:        "[]",
 		References:       "[]",
 		From:             "[]", Sender: "[]", ReplyTo: "[]", To: "[]", Cc: "[]", Bcc: "[]",

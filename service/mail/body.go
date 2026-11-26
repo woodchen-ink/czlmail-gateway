@@ -105,8 +105,20 @@ func (p *part) charset() any {
 	return nil
 }
 
+// size is the part's JMAP size: exact when the message was parsed locally (raw
+// is non-nil), else estimated from BODYSTRUCTURE.
+func (p *part) size(raw *rawMessage) int64 {
+	if raw != nil {
+		data, _ := decodeTransfer(raw.sections[p.partID], p.node.Encoding)
+		return int64(len(data))
+	}
+	return p.decodedSize()
+}
+
 // decodedSize estimates the size after removing the transfer encoding (the
-// JMAP size), from the encoded size BODYSTRUCTURE reports.
+// JMAP size), from the encoded size BODYSTRUCTURE reports. base64 padding is
+// not visible in that size, so the estimate can be up to 2 bytes too large;
+// being exact would cost a fetch per part on every Email/get of bodyStructure.
 func (p *part) decodedSize() int64 {
 	n := p.node.Size
 	switch p.node.Encoding {

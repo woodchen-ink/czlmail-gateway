@@ -14,6 +14,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
@@ -211,13 +213,42 @@ func (g *Gmail) Identities(ctx context.Context) ([]upstream.Identity, error) {
 		if !s.IsPrimary && s.VerificationStatus != "accepted" {
 			continue
 		}
+		name := s.DisplayName
+		if name == "" {
+			name = g.senderName(s.SendAsEmail)
+		}
 		out = append(out, upstream.Identity{
-			ID: IdentityID(s.SendAsEmail), Name: s.DisplayName, Email: strings.ToLower(s.SendAsEmail),
+			ID: IdentityID(s.SendAsEmail), Name: name, Email: strings.ToLower(s.SendAsEmail),
 			ReplyTo: s.ReplyToAddress, HTMLSignature: s.Signature,
 		})
 	}
 	gm.identities, gm.identAt = out, now
 	return cloneIdentities(out), nil
+}
+
+// senderName is the display name of addr in the newest indexed From headers.
+// Gmail leaves the primary send-as displayName empty unless the user set one;
+// its mail then goes out under the Google account name, which this finds.
+func (g *Gmail) senderName(addr string) string {
+	var rows []model.IndexEmail
+	// LIKE narrows the scan (case-insensitive, '_' a wildcard); the loop decides.
+	err := g.idx.DB().Select("from_addr").Where("from_addr LIKE ?", "%"+strings.ToLower(addr)+"%").
+		Order("received_at DESC").Limit(20).Find(&rows).Error
+	if err != nil {
+		return ""
+	}
+	for _, r := range rows {
+		var list []mailindex.Address
+		if json.Unmarshal([]byte(r.From), &list) != nil {
+			continue
+		}
+		for _, a := range list {
+			if n := strings.TrimSpace(a.Name); n != "" && strings.EqualFold(a.Email, addr) {
+				return n
+			}
+		}
+	}
+	return ""
 }
 
 func cloneIdentities(l []upstream.Identity) []upstream.Identity {

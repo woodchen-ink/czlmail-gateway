@@ -31,7 +31,7 @@ type gmailEnv struct {
 func newGmailEnv(t *testing.T) *gmailEnv {
 	t.Helper()
 	e := &gmailEnv{provider: oauthtest.New(t)}
-	e.mail = gmailtest.New(t, gmailtest.Options{Account: gmailAccount, Tokens: e.provider})
+	e.mail = gmailtest.New(t, gmailtest.Options{Account: gmailAccount, Tokens: e.provider, HideDraftFlag: true})
 	e.api = gmailtest.NewAPI(t, e.provider, e.mail)
 	e.gw = Start(t)
 	e.cred = e.gw.NewUser(t)
@@ -811,5 +811,21 @@ func TestGmailIdentitiesPerAccount(t *testing.T) {
 	// Stable across reads.
 	if again := ids(e, acct1); !slices.Equal(again, a) {
 		t.Fatalf("identity ids changed: %v → %v", a, again)
+	}
+}
+
+// gateway#2: Gmail leaves the primary sendAs displayName empty unless the user
+// set one; the name comes from the account's own From headers instead.
+func TestGmailIdentityNameFromSentMail(t *testing.T) {
+	e := newGmailEnv(t)
+	e.mail.MustAdd(gmailtest.SentMail, imaptest.SampleFrom("Test User <"+gmailAccount+">", "ann@example.test", "hello ann"))
+	e.mail.MustAdd(gmailtest.Inbox, imaptest.SampleFrom("ann@example.test", gmailAccount, "hi back"))
+	acct := string(e.gw.AddGmailUpstream(t, e.cred, e.mail, e.api, e.provider))
+	list, err := e.up(t, acct).(upstream.IdentitySource).Identities(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(list) != 1 || list[0].Name != "Test User" {
+		t.Fatalf("identities %+v, want the name from Sent", list)
 	}
 }

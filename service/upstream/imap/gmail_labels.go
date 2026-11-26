@@ -314,3 +314,14 @@ func (u *Upstream) dropLabelRow(tx *mailindex.Tx, lr *labelRows, row *model.Inde
 	}
 	return nil
 }
+
+// msgKeywords maps a fetched message's flags to keywords. Gmail may report a
+// draft only in X-GM-LABELS, without the \Draft flag (All Mail does), so the
+// label sets $draft too; without it a sent draft would stay in Drafts.
+func msgKeywords(m *imapc.Message) mailindex.Keywords {
+	kw := mailindex.FlagsToKeywords(m.Flags)
+	if labels, ok := gmLabels(m); ok && slices.Contains(labels, gmDraft) {
+		kw["$draft"] = true
+	}
+	return kw
+}

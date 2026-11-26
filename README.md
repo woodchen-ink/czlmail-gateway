@@ -39,6 +39,7 @@ Only startup settings are environment variables; everything else is configured i
 | `GATEWAY_DATA_DIR` | SQLite files and temporary blobs | `/data` |
 | `GATEWAY_WEB_DIR` | The admin web build served under `/admin/` (the image sets it) | `web/out` |
 | `GATEWAY_TRUSTED_PROXIES` | Trusted reverse proxies as `Header@cidr,cidr`, e.g. `X-Real-IP@172.16.0.0/12`. Empty: use the direct peer address. | empty |
+| `GATEWAY_LOG_LEVEL` | `debug`, `info`, `warn` or `error`. `debug` adds IMAP push events and per-folder sync counts (no message content), for reports of slow or missing updates. | `info` |
 | `TZ` | Time zone for logs and the admin | `UTC` |
 
 ### Commands
@@ -354,7 +355,7 @@ Request-level codes (problem JSON): 40020 `not_json`, 40021 `not_request`, 40022
 | `Mailbox/get`, `Mailbox/changes` | roles from SPECIAL-USE, then folder names; `totalEmails` / `unreadEmails` / `totalThreads` / `unreadThreads` counted from the index; `updatedProperties` lists the four counts when only they changed |
 | `Mailbox/query` | filter `parentId`, `name`, `role`, `hasAnyRole`, `isSubscribed`; sort `sortOrder`, `name`; `sortAsTree`, `filterAsTree` |
 | `Mailbox/set` | create, rename / move (the id is kept, children follow), destroy (`mailboxHasChild`, `mailboxHasEmail` unless `onDestroyRemoveEmails`); roles, subscriptions and `sortOrder` come from the server and cannot be set |
-| `Email/get` | every property, `header:{name}[:as{Form}][:all]`, `bodyProperties`, `fetchTextBodyValues` / `fetchHTMLBodyValues` / `fetchAllBodyValues`, `maxBodyValueBytes`; header fields and body parts are fetched from the server on demand and cached on disk (500 MB, least recently used out); `textBody` / `htmlBody` / `attachments` follow RFC 8621 §4.1.4, so a message without HTML has its text part in `htmlBody` |
+| `Email/get` | every property, `header:{name}[:as{Form}][:all]`, `bodyProperties`, `fetchTextBodyValues` / `fetchHTMLBodyValues` / `fetchAllBodyValues`, `maxBodyValueBytes`; header fields and body parts are fetched from the server on demand and cached on disk (500 MB, least recently used out); `textBody` / `htmlBody` / `attachments` follow RFC 8621 §4.1.4, so a message without HTML has its text part in `htmlBody`; a part's `size` is estimated from the encoded size in BODYSTRUCTURE (base64 can come out up to 2 bytes large) and exact when the gateway parsed the message itself; the downloaded blob is always exact |
 | `Email/changes`, `Thread/get`, `Thread/changes` | from the changelog; `Thread/get` needs `ids` |
 | `Email/query` | mailbox, keyword, thread keyword, date, size, attachment, from / to / cc / subject from the index; `text`, `body`, `bcc`, `header` with the server's `UID SEARCH` (four folders at a time when no `inMailbox`); sort `receivedAt`, `sentAt`, `size`, `subject`, `from`, `to`, `hasKeyword`, `someInThreadHaveKeyword`, `allInThreadHaveKeyword`; `position`, `anchor`, `anchorOffset`, `limit` (at most 10,000), `calculateTotal`, `collapseThreads`; `canCalculateChanges` is false |
 | `Email/queryChanges`, `Mailbox/queryChanges` | always `cannotCalculateChanges` |

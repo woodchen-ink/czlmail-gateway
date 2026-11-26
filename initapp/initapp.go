@@ -18,9 +18,19 @@ import (
 // EnvOldMasterKey carries the previous master key during `gateway rotate-key`.
 const EnvOldMasterKey = "GATEWAY_OLD_MASTER_KEY"
 
+// EnvLogLevel sets the log level: debug, info (default), warn or error. Debug
+// adds IMAP watch events and per-folder sync counts, never message content.
+const EnvLogLevel = "GATEWAY_LOG_LEVEL"
+
 // NewLogger returns the JSON logger used everywhere (level, time, msg, trace_id).
 func NewLogger() *slog.Logger {
-	return slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
+	level := slog.LevelInfo
+	if v := os.Getenv(EnvLogLevel); v != "" {
+		if err := level.UnmarshalText([]byte(v)); err != nil {
+			level = slog.LevelInfo
+		}
+	}
+	return slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: level}))
 }
 
 // Serve runs the gateway until ctx is cancelled, then shuts down gracefully.

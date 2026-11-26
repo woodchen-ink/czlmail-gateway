@@ -588,7 +588,7 @@ func (g *Gmail) refreshLabels(ctx context.Context, c *imapc.Client, states map[s
 			if e == nil {
 				continue
 			}
-			if err := tx.SetKeywords(all.ID, m.UID, mailindex.FlagsToKeywords(m.Flags), m.ModSeq); err != nil {
+			if err := tx.SetKeywords(all.ID, m.UID, msgKeywords(m), m.ModSeq); err != nil {
 				return err
 			}
 			labels, _ := gmLabels(m)

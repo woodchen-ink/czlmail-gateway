@@ -89,6 +89,7 @@ services:
       GATEWAY_MASTER_KEY: ${GATEWAY_MASTER_KEY:?}
       GATEWAY_BASE_URL: ${GATEWAY_BASE_URL:?}
       GATEWAY_TRUSTED_PROXIES: ${GATEWAY_TRUSTED_PROXIES:-}
+      GATEWAY_LOG_LEVEL: ${GATEWAY_LOG_LEVEL:-info}
       TZ: ${TZ:-UTC}
     volumes:
       - gateway-data:/data
@@ -125,6 +126,7 @@ Only startup settings are environment variables. Everything else (sign-up, defau
 | `GATEWAY_MASTER_KEY` | The master key, see [2.2](#22-generate-and-back-up-the-master-key) | required |
 | `GATEWAY_BASE_URL` | The gateway's public address, e.g. `https://mail-gw.example.com`. JMAP session URLs and OAuth redirect URIs are built from it, so it must match what browsers and czlmail actually use (scheme, host, port). `https` only; `http://localhost` for local tests | required |
 | `GATEWAY_TRUSTED_PROXIES` | Trusted reverse proxies as `Header@cidr,cidr`, e.g. `X-Real-IP@172.16.0.0/12`. The gateway then takes the client IP from that header (for sign-in rate limits and "last used from"); empty uses the direct peer address | empty |
+| `GATEWAY_LOG_LEVEL` | `debug`, `info`, `warn` or `error`. Set `debug` when mail or flag changes arrive late: the log then shows each push event from the mail server and what every folder sync found (counts only, no message content) | `info` |
 | `TZ` | Time zone for logs and the admin | `UTC` |
 | `GATEWAY_LISTEN` | Listen address | `:8080` |
 | `GATEWAY_DATA_DIR` | Data directory | `/data` |

@@ -112,7 +112,7 @@ func (ss *session) fetch(p *parser, uid bool) error {
 			tg.m.flags[`\Seen`] = true
 			ss.s.touchLocked(tg.m)
 			seen = true
-			parts = append(parts, fmt.Sprintf("FLAGS (%s)", strings.Join(tg.m.Flags(), " ")))
+			parts = append(parts, fmt.Sprintf("FLAGS (%s)", strings.Join(ss.flagsOf(tg.m), " ")))
 		}
 		ss.out("* %d FETCH (%s)", tg.seq, strings.Join(parts, " "))
 	}
@@ -132,7 +132,7 @@ func (ss *session) fetchItem(name string, tg target) (string, bool, error) {
 	case "UID":
 		return fmt.Sprintf("UID %d", tg.uid), false, nil
 	case "FLAGS":
-		return fmt.Sprintf("FLAGS (%s)", strings.Join(m.Flags(), " ")), false, nil
+		return fmt.Sprintf("FLAGS (%s)", strings.Join(ss.flagsOf(m), " ")), false, nil
 	case "INTERNALDATE":
 		return fmt.Sprintf(`INTERNALDATE "%s"`, m.InternalDate.Format("02-Jan-2006 15:04:05 -0700")), false, nil
 	case "RFC822.SIZE":

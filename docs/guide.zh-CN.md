@@ -89,6 +89,7 @@ services:
       GATEWAY_MASTER_KEY: ${GATEWAY_MASTER_KEY:?}
       GATEWAY_BASE_URL: ${GATEWAY_BASE_URL:?}
       GATEWAY_TRUSTED_PROXIES: ${GATEWAY_TRUSTED_PROXIES:-}
+      GATEWAY_LOG_LEVEL: ${GATEWAY_LOG_LEVEL:-info}
       TZ: ${TZ:-UTC}
     volumes:
       - gateway-data:/data
@@ -125,6 +126,7 @@ docker run -d --name czlmail-gateway --restart unless-stopped \
 | `GATEWAY_MASTER_KEY` | 主密钥, 见 [2.2](#22-生成并备份主密钥) | 必填 |
 | `GATEWAY_BASE_URL` | 网关对外的地址, 如 `https://mail-gw.example.com`。JMAP Session 里的地址和 OAuth 回调地址都由它生成, 必须与浏览器和 czlmail 实际访问的地址完全一致 (协议、域名、端口)。只接受 `https`, 本机测试可用 `http://localhost` | 必填 |
 | `GATEWAY_TRUSTED_PROXIES` | 可信反向代理, 格式 `请求头@网段,网段`, 如 `X-Real-IP@172.16.0.0/12`。设置后网关从这个请求头取客户端 IP (用于登录限流与「最近使用 IP」); 留空则用直连对端的地址 | 空 |
+| `GATEWAY_LOG_LEVEL` | `debug`、`info`、`warn` 或 `error`。邮件或标记变化到得慢时设为 `debug`: 日志会记下邮件服务器的每次推送事件和每个文件夹同步查到了什么 (只有数量, 不含邮件内容) | `info` |
 | `TZ` | 日志与后台显示的时区 | `UTC` |
 | `GATEWAY_LISTEN` | 监听地址 | `:8080` |
 | `GATEWAY_DATA_DIR` | 数据目录 | `/data` |

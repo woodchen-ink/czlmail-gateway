@@ -254,7 +254,8 @@ func (s *Identities) Delete(accountID, id string) error {
 // syncSource mirrors the identities an upstream lists itself (Gmail send-as,
 // upstream.IdentitySource) into provider rows that keep the upstream's ids. The
 // provider's name, Reply-To and signature fill a new row; afterwards the
-// gateway's stored values win, so Identity/set edits stay.
+// gateway's stored values win, so Identity/set edits stay (an empty name is
+// filled when the provider has one).
 func (s *Identities) syncSource(accountID string, list []upstream.Identity) error {
 	var have []model.Identity
 	if err := s.db.Where("account_id = ? AND source = ?", accountID, model.IdentityProvider).Find(&have).Error; err != nil {
@@ -295,8 +296,13 @@ func (s *Identities) syncSource(accountID string, list []upstream.Identity) erro
 				continue
 			}
 			changes = append(changes, change{row, kindCreated})
-		case row.Email != addr:
+		case row.Email != addr || row.Name == "" && p.Name != "":
+			// An empty name was never chosen: Gmail found none when the row
+			// was made (gateway#2), so a name the provider has now fills it.
 			row.Email = addr
+			if row.Name == "" {
+				row.Name = p.Name
+			}
 			changes = append(changes, change{row, kindUpdated})
 		}
 	}

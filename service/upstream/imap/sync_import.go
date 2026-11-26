@@ -287,7 +287,7 @@ func (r *round) place(tx *mailindex.Tx, lr *labelRows, d *folderDelta, f *fetche
 		if err := tx.Attach(o, d.mbox.ID, m.UID, m.ModSeq); err != nil {
 			return err
 		}
-		if err := tx.SetKeywords(d.mbox.ID, m.UID, mailindex.FlagsToKeywords(m.Flags), 0); err != nil {
+		if err := tx.SetKeywords(d.mbox.ID, m.UID, msgKeywords(m), 0); err != nil {
 			return err
 		}
 		return r.u.placeLabels(tx, lr, d.mbox, o.ID, m)

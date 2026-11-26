@@ -82,7 +82,7 @@ func (d *folderDelta) noteFetched(m *imapc.Message, isNew map[uint32]bool) {
 	if !m.HasFlags {
 		return
 	}
-	kw := mailindex.FlagsToKeywords(m.Flags)
+	kw := msgKeywords(m)
 	labels, hasLabels := gmLabels(m)
 	// A label change is invisible in FLAGS: with labels, every fetched message
 	// is compared (setting the same labels again is a no-op).

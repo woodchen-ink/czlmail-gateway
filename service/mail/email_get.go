@@ -361,7 +361,7 @@ func (g *getter) partObject(ctx context.Context, m *message, pt *part) (map[stri
 		if !leaf {
 			return 0
 		}
-		return pt.decodedSize()
+		return pt.size(m.raw)
 	})
 	put("name", func() any { return nullable(pt.name()) })
 	put("type", func() any { return pt.mediaType() })

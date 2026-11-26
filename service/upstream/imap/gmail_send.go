@@ -3,6 +3,7 @@ package imap
 import (
 	"context"
 	"errors"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -49,7 +50,9 @@ func (g *Gmail) SendMessage(ctx context.Context, raw []byte, opts upstream.SendO
 			// Only a draft is deleted: the caller may submit any email.
 			var row model.IndexEmail
 			isDraft := g.idx.DB().Select("draft").Where("id = ?", opts.DraftEmailID).First(&row).Error == nil && row.Draft
-			if list, err := g.loadEmails(mb, []string{opts.DraftEmailID}); err == nil && isDraft {
+			// The \Draft label counts too: indexes written before msgKeywords
+			// have Gmail drafts without $draft.
+			if list, err := g.loadEmails(mb, []string{opts.DraftEmailID}); err == nil && (isDraft || slices.Contains(list[0].labels, gmDraft)) {
 				draft = list[0]
 			}
 		}

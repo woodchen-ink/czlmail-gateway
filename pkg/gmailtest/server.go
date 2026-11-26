@@ -24,6 +24,10 @@ type Options struct {
 	Tokens TokenValidator
 	// ObjectID adds RFC 8474 OBJECTID, which real Gmail does not have.
 	ObjectID bool
+	// HideDraftFlag leaves \Draft out of FETCH FLAGS outside [Gmail]/Drafts, as
+	// real Gmail does for drafts seen from All Mail: there the draft shows only in
+	// X-GM-LABELS. Off by default.
+	HideDraftFlag bool
 }
 
 // Server is a fake Gmail IMAP server for one account.

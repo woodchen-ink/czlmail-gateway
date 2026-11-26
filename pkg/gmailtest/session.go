@@ -720,7 +720,7 @@ func (ss *session) pushUpdatesLocked() {
 }
 
 func (ss *session) flagItems(f *folder, m *Message) string {
-	items := fmt.Sprintf("UID %d FLAGS (%s) X-GM-LABELS (%s)", f.uidOf[m], strings.Join(m.Flags(), " "), labelList(m))
+	items := fmt.Sprintf("UID %d FLAGS (%s) X-GM-LABELS (%s)", f.uidOf[m], strings.Join(ss.flagsOf(m), " "), labelList(m))
 	if ss.condstore {
 		items += fmt.Sprintf(" MODSEQ (%d)", m.ModSeq)
 	}
@@ -733,4 +733,13 @@ func labelList(m *Message) string {
 		ls[i] = quote(l)
 	}
 	return strings.Join(ls, " ")
+}
+
+// flagsOf is FETCH FLAGS of m as seen from the selected folder (Options.HideDraftFlag).
+func (ss *session) flagsOf(m *Message) []string {
+	flags := m.Flags()
+	if !ss.s.opts.HideDraftFlag || ss.sel != nil && ss.sel.name == Drafts {
+		return flags
+	}
+	return slices.DeleteFunc(flags, func(f string) bool { return f == `\Draft` })
 }
