@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 // Publish pushes new states of types the gateway keeps outside the mail index

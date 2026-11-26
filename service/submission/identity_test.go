@@ -3,7 +3,7 @@ package submission_test
 import (
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/smtptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/smtptest"
 )
 
 func TestIdentityMethods(t *testing.T) {

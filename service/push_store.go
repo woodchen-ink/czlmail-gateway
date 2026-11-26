@@ -9,9 +9,9 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 const pushTable = "push_subscriptions"

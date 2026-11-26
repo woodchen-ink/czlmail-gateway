@@ -14,8 +14,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Identity errors.

@@ -6,7 +6,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // Admin session lifetime: signed out after SessionIdle without requests, and after

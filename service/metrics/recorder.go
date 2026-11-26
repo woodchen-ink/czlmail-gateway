@@ -14,7 +14,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // Retention is how long hourly rows are kept.

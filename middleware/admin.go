@@ -9,8 +9,8 @@ import (
 	"github.com/woodchen-ink/go-web-utils/cookieutil"
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 // SessionCookie holds the admin session token (HttpOnly). The CSRF token is in

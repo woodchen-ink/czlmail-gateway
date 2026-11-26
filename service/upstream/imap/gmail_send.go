@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // SendMessage sends through users.messages.send and indexes the sent message

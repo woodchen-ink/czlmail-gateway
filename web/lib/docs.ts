@@ -1,9 +1,9 @@
-// Links to the deployment and usage guide in the repository (gateway/docs).
+// Links to the deployment and usage guide in the repository (docs/).
 // Every in-app "guide" link comes from this table; anchors are GitHub's heading
 // slugs of guide.md / guide.zh-CN.md, so a renamed heading is fixed here only.
 import type { Locale } from "@/lib/i18n"
 
-const BASE = "https://github.com/woodchen-ink/czlmail/blob/main/gateway/docs/"
+const BASE = "https://github.com/woodchen-ink/czlmail-gateway/blob/main/docs/"
 
 const DOCS = {
   imap: ["4-add-an-imap-mailbox", "4-添加普通-imap-邮箱"],

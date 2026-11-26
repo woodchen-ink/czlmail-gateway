@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // Tx is one write transaction. Its methods change index rows and record the

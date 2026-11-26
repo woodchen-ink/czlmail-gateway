@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Search runs UID SEARCH in one folder and maps the UIDs to email ids. It does

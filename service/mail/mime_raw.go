@@ -6,7 +6,7 @@ import (
 	"net/textproto"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
 )
 
 // rawMessage is a message parsed locally, for servers that do not send

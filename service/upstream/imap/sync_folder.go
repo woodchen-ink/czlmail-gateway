@@ -4,9 +4,9 @@ import (
 	"context"
 	"slices"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 // recentWindow is how many of the newest messages a server without CONDSTORE has

@@ -7,8 +7,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
 )
 
 func testKey(b byte) []byte { return bytes.Repeat([]byte{b}, 32) }

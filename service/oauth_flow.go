@@ -13,10 +13,10 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx"
-	"github.com/woodchen-ink/czlmail/gateway/service/oauth"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx"
+	"github.com/woodchen-ink/czlmail-gateway/service/oauth"
 )
 
 // OAuth flow errors. The callback reports them to the browser by Msg; see

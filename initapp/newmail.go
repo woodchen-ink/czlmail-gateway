@@ -1,9 +1,9 @@
 package initapp
 
 import (
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/mail"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/mail"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 // newMailNotifier hands emails delivered into an upstream to push

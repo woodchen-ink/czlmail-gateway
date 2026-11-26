@@ -3,7 +3,7 @@ package mailindex
 import (
 	"gorm.io/gorm/clause"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // Bind makes a message the server stored on its own (its copy of a sent draft)

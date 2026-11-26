@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 func TestUploadDownloadThroughGoJMAP(t *testing.T) {

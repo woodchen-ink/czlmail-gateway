@@ -6,7 +6,7 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 // System: GET /api/admin/system — version, database, master key and environment. Admins only.

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // idleRenew re-issues IDLE before the 30-minute server timeout (RFC 2177 asks

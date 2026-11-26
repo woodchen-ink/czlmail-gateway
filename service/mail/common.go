@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 // SetError is a per-object /set failure (RFC 8620 §5.3).

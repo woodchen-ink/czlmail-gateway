@@ -17,7 +17,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // MainFile is the name of the main database inside the data directory.

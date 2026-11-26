@@ -4,7 +4,7 @@ import (
 	"mime"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
 )
 
 var bodyPartProperties = []string{"partId", "blobId", "size", "headers", "name", "type", "charset",

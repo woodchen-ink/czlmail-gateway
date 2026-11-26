@@ -12,10 +12,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/handler"
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/handler"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 type apiResp struct {

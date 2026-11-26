@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/oauthtest"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream/microsoft"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/oauthtest"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream/microsoft"
 )
 
 func TestClassifyTokenError(t *testing.T) {

@@ -3,8 +3,8 @@ package mail
 import (
 	"encoding/json"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // setArgs are the standard /set arguments; objects stay raw for per-type decoding.

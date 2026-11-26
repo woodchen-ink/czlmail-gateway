@@ -3,7 +3,7 @@ package initapp
 import (
 	"net/http"
 
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 // jmapAuth adapts the Basic authenticator to jmapserver, naming the app password

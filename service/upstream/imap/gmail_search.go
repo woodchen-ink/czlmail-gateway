@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // GmailRawQuery translates a search filter to Gmail search syntax for X-GM-RAW.

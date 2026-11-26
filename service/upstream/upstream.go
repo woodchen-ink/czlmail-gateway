@@ -15,8 +15,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 // Kinds of upstream.

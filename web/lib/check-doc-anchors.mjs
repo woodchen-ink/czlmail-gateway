@@ -1,4 +1,4 @@
-// Checks that every anchor in lib/docs.ts is a heading of gateway/docs/guide.md
+// Checks that every anchor in lib/docs.ts is a heading of docs/guide.md
 // (English) or guide.zh-CN.md (Chinese), with GitHub's heading slugs.
 // Run by `npm run i18n:check`; skipped while the guide is not in the tree.
 import fs from "node:fs"
@@ -28,7 +28,7 @@ function slugs(file) {
 const en = path.join(docsDir, "guide.md")
 const zh = path.join(docsDir, "guide.zh-CN.md")
 if (!fs.existsSync(en) || !fs.existsSync(zh)) {
-  console.log("doc anchors: gateway/docs/guide*.md not found, skipped")
+  console.log("doc anchors: docs/guide*.md not found, skipped")
   process.exit(0)
 }
 const enSlugs = slugs(en)

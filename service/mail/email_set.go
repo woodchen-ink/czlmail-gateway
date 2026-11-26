@@ -7,10 +7,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 func (s *Service) emailSet(ctx context.Context, call *jmapserver.Call) (any, error) {

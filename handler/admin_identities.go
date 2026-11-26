@@ -6,8 +6,8 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service/submission"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service/submission"
 )
 
 var errInvalidSentCopy = errors.New("invalid sent copy")

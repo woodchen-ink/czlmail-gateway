@@ -16,10 +16,10 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Capability is the JMAP Mail capability every method here requires.

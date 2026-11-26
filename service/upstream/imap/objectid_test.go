@@ -6,12 +6,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gmailtest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream/imap"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gmailtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream/imap"
 )
 
 // The fake Gmail server with OBJECTID is the only test server offering OBJECTID,

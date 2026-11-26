@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
-# czlmail JMAP gateway. Build context is gateway/.
+# czlmail JMAP gateway. Build context is the repository root.
 
-# Admin web (gateway/web): a Next.js static export. The output does not depend on the
+# Admin web (web/): a Next.js static export. The output does not depend on the
 # target platform, so it is built once on the build host instead of under emulation.
 FROM --platform=$BUILDPLATFORM node:24-alpine AS web
 WORKDIR /web

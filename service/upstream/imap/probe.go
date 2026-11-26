@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Probe tests the IMAP and SMTP servers of cfg: sign in, capabilities, and for

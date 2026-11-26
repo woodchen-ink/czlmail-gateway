@@ -7,9 +7,9 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/handler"
-	"github.com/woodchen-ink/czlmail/gateway/middleware"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/handler"
+	"github.com/woodchen-ink/czlmail-gateway/middleware"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 // Deps are the handlers the router mounts.

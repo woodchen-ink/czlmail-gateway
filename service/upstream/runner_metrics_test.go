@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 type recMetrics struct {

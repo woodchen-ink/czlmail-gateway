@@ -15,10 +15,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream/imap"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream/imap"
 )
 
 // Servers of Exchange Online, the same for work and personal accounts.

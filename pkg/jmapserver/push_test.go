@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 // memPushStore is an in-memory jmapserver.PushStore.

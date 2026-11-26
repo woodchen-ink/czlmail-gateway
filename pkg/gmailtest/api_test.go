@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/oauthtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/oauthtest"
 )
 
 func apiCall(t *testing.T, method, url, token string, body []byte, contentType string) (int, map[string]any) {

@@ -3,7 +3,7 @@ package mailindex
 import (
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 func TestOnCommitReportsChangedStates(t *testing.T) {

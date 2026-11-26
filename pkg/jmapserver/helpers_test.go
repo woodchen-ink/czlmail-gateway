@@ -16,7 +16,7 @@ import (
 	"git.sr.ht/~rockorager/go-jmap"
 	_ "git.sr.ht/~rockorager/go-jmap/core" // registers the core capability and Core/echo
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 const testCap = "urn:test"

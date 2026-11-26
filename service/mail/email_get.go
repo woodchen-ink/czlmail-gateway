@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 var emailProperties = []string{"id", "blobId", "threadId", "mailboxIds", "keywords", "size", "receivedAt",

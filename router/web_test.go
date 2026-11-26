@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/handler"
+	"github.com/woodchen-ink/czlmail-gateway/handler"
 )
 
 func TestAdminWeb(t *testing.T) {

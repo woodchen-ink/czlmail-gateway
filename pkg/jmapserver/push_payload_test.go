@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 func TestEmailPushSizing(t *testing.T) {

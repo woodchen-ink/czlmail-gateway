@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 // Status is an upstream's state as the Session shows it.

@@ -42,7 +42,7 @@ type Config struct {
 	Listen string
 	// DataDir holds gateway.sqlite, the per-upstream databases and temporary blobs.
 	DataDir string
-	// WebDir is the admin web build (gateway/web/out), served under /admin/.
+	// WebDir is the admin web build (web/out), served under /admin/.
 	WebDir string
 	// Proxies decides which forwarding headers are trusted for the client IP;
 	// nil when no proxy is trusted. Use ClientIP rather than reading it directly.

@@ -4,8 +4,8 @@ import (
 	"context"
 	"slices"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 // NewMail is an email that just arrived on an upstream, for push

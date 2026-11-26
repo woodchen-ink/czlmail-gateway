@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gmailtest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/oauthtest"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gmailtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/oauthtest"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 const gmailAccount = "me@gmail.test"

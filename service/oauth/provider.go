@@ -13,7 +13,7 @@ import (
 	"slices"
 	"sync"
 
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Provider is one OAuth mail provider.

@@ -3,7 +3,7 @@ package imap
 import (
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
 )
 
 // Exchange Online (work and Outlook.com) folder lists, with and without the

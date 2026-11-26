@@ -16,9 +16,9 @@ import (
 
 	"git.sr.ht/~rockorager/go-jmap"
 
-	"github.com/woodchen-ink/czlmail/gateway/config"
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/initapp"
+	"github.com/woodchen-ink/czlmail-gateway/config"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/initapp"
 )
 
 // newGateway serves the fully assembled gateway, as Serve does.

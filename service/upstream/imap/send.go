@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // sendTimeout bounds one SMTP transaction.

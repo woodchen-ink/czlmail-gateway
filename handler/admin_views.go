@@ -3,8 +3,8 @@ package handler
 import (
 	"encoding/json"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 type userView struct {

@@ -12,7 +12,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
 )
 
 // deviceKeys is a push key pair as the czlmail iOS app holds it.

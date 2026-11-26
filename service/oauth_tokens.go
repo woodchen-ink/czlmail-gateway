@@ -7,11 +7,11 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx"
-	"github.com/woodchen-ink/czlmail/gateway/service/oauth"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx"
+	"github.com/woodchen-ink/czlmail-gateway/service/oauth"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // tokenEntry caches one upstream's token. Its mutex serialises refreshes, so

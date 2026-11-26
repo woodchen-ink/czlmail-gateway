@@ -7,7 +7,7 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 // ListSettings: GET /api/admin/settings. Admins only.

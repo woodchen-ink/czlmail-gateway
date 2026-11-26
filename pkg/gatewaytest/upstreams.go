@@ -9,8 +9,8 @@ import (
 
 	"git.sr.ht/~rockorager/go-jmap"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/smtptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/smtptest"
 )
 
 // Upstream is an upstream as the admin API returns it (the fields tests use).

@@ -10,9 +10,9 @@ import (
 	"git.sr.ht/~rockorager/go-jmap/mail"
 	"git.sr.ht/~rockorager/go-jmap/mail/mailbox"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gmailtest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/oauthtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gmailtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/oauthtest"
 )
 
 // Runs today: the harness starts a gateway and reaches it over HTTP.

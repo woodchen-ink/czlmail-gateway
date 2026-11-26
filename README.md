@@ -2,7 +2,7 @@
 
 **English** · [简体中文](docs/guide.zh-CN.md)
 
-czlmail is a pure JMAP client. The gateway is a self-hosted companion that connects your other mailboxes (Gmail, Microsoft 365 / Outlook.com and any IMAP + SMTP mailbox) and serves them to czlmail as one JMAP server. czlmail stays pure JMAP; the gateway does the translating.
+[czlmail](https://github.com/woodchen-ink/czlmail) is a pure JMAP client for desktop, Android and iOS. The gateway is a self-hosted companion that connects your other mailboxes (Gmail, Microsoft 365 / Outlook.com and any IMAP + SMTP mailbox) and serves them to czlmail as one JMAP server. czlmail stays pure JMAP; the gateway does the translating.
 
 - Sign in to the gateway once; every mailbox you add in its admin appears as its own account in czlmail.
 - The gateway watches the upstreams (IMAP NOTIFY / IDLE, polling where needed) and pushes changes over EventSource, including iOS background notifications. czlmail never polls.
@@ -23,7 +23,7 @@ docker compose up -d
 docker compose logs gateway | grep setup_url            # open this link to create the owner
 ```
 
-Put a TLS reverse proxy in front of port 8080 ([examples](docs/guide.md#26-reverse-proxy)). Images: `ghcr.io/woodchen-ink/czlmail-gateway` with tags `latest`, `YYYY.M`, `YYYY.M.N`, and `edge` (latest `main`).
+Put a TLS reverse proxy in front of port 8080 ([examples](docs/guide.md#26-reverse-proxy)). Images: `ghcr.io/woodchen-ink/czlmail-gateway` for amd64 and arm64, with tags `latest`, `YYYY.M`, `YYYY.M.N`, `edge` (latest `main`) and `sha-<7>`. Versions and release notes: [Releases](https://github.com/woodchen-ink/czlmail-gateway/releases).
 
 The rest of this file is the technical reference: environment, admin API, JMAP endpoints and extensions, sync and sending behaviour, error codes, development and tests.
 
@@ -87,7 +87,7 @@ The admin is served by the gateway itself at `/admin/` (the bare origin redirect
 | 设置 Settings | Your account and password, theme, registration, network and security settings. |
 | 系统 System | Version, database, master key, startup environment; background tasks with their recent runs and a "run now" button; the audit log. |
 
-IMAP mailboxes are managed with the upstream API (`/api/admin/upstreams`). Gmail and Microsoft mailboxes and the OAuth apps arrive with [#42](https://github.com/woodchen-ink/czlmail/issues/42) and [#43](https://github.com/woodchen-ink/czlmail/issues/43), automatic server detection later; until then those parts say the feature is not ready.
+Everything the admin does is also available through the admin API, e.g. mailboxes at `/api/admin/upstreams`.
 
 ## App passwords
 
@@ -103,7 +103,7 @@ Failed sign-ins (admin and Basic) are rate limited per username and per IP; over
 
 ## Mailboxes
 
-Each mailbox you connect (an *upstream*) becomes one JMAP account in czlmail, with a random account id that never changes. Until the admin pages land ([#44](https://github.com/woodchen-ink/czlmail/issues/44)), add them with the admin API.
+Each mailbox you connect (an *upstream*) becomes one JMAP account in czlmail, with a random account id that never changes. Add them in the admin (see the [guide](docs/guide.md#4-add-an-imap-mailbox)) or with the admin API below.
 
 ### Add an IMAP mailbox
 
@@ -371,12 +371,11 @@ The engine is `pkg/jmapserver` (RFC 8620 Core, no mail semantics): authenticatio
 ## Development
 
 ```sh
-cd gateway
 go test ./...
 GATEWAY_MASTER_KEY=$(openssl rand -base64 32) GATEWAY_BASE_URL=http://localhost:8080 GATEWAY_DATA_DIR=./data go run .
 ```
 
-- Separate Go module (`github.com/woodchen-ink/czlmail/gateway`); it does not import `desktop/`.
+- Go module `github.com/woodchen-ink/czlmail-gateway`. It shares no code with the [czlmail client](https://github.com/woodchen-ink/czlmail); the contract between them is the JMAP session, the `https://czl.net/jmap/upstream` account capability, the upstream error codes and `/.well-known/czlmail.json` (all below).
 - Top-level packages: `config` (startup env), `database` (SQLite, pure Go), `model`, `service` (business logic and data access), `handler`, `router`, `middleware`, `initapp`, `cron`, `pkg` (`pkg/crypto` for sealed secrets and argon2id password hashes, `pkg/jmapserver` for the JMAP Core engine, `pkg/netx` for per-upstream dialers, `pkg/imapc` for the IMAP client; `pkg/*test` are test helpers, see Testing).
 - Upstreams: `service/upstream` defines the `Upstream` interface, `Config`, error classes (`KindAuth`, `KindUnreachable`, `KindThrottled`, `KindRejected`) and the `Runner` (state machine, backoff, polling, watcher restarts); `service/upstream/imap` implements it (Gmail and Microsoft reuse it with their own sign-in and `Dialect`); `service/mailindex` is the per-upstream index and changelog (`data/upstreams/<accountId>.sqlite`, states `<generation>-<seq>`); `service.UpstreamManager` runs one runner per mailbox, publishes every index commit (sync rounds and gateway writes alike, through `mailindex.Store.OnCommit`) to the push bus and closes the user's streams on status changes; `UpstreamManager.Lookup(accountId)` gives JMAP methods the running upstream or the `UpstreamError` for `serverUnavailable`.
 - JMAP Mail: `service/mail` registers the Mail methods and the `m` / `p` blob sources (`initapp` wires it). Reads use the index (`mailindex.Store.DB`, rows with `orphaned_from <> ''` do not exist); bodies go through `mail.Cache` (`data/cache/mail/<accountId>/`); searches the index cannot answer go to `Upstream.Search` (a provider can replace the criteria with `imap.Dialect.SearchCriteria`, e.g. Gmail's `X-GM-RAW`). Emails the sync engine finds new (`mailindex.Tx.Delivered`) reach `mail.Options.OnNewMail`, which `initapp` forwards to `jmapserver.Server.NewMail` for push, except in Sent, Drafts, Trash and Junk. `Service.ImplicitEmailSet` runs the Email/set part of `onSuccessUpdateEmail` / `onSuccessDestroyEmail` for EmailSubmission.
@@ -397,7 +396,7 @@ GATEWAY_MASTER_KEY=$(openssl rand -base64 32) GATEWAY_BASE_URL=http://localhost:
 `web/` is a Next.js static export (basePath `/admin`) with Tailwind and shadcn/ui; the gateway serves `web/out` (see `handler/admin_web.go`). All API calls go through `web/lib/api/`; every text is in `web/lib/i18n/zh-CN.ts` and `en.ts`, which must have the same keys (`npm run i18n:check`, run in CI).
 
 ```sh
-cd gateway/web
+cd web
 npm ci
 npm run dev       # http://localhost:3000/admin/, /api proxied to GATEWAY_DEV_URL (default http://localhost:8080)
 npm run lint && npm run typecheck && npm run i18n:check && npm run build   # build writes web/out, which `go run .` serves at /admin/
@@ -408,7 +407,6 @@ npm run lint && npm run typecheck && npm run i18n:check && npm run build   # bui
 `go test ./...` passes without Docker: tests that need a real server skip. To run them, start the test servers and point the tests at them:
 
 ```sh
-cd gateway
 docker compose -f docker-compose.test.yml up -d
 export GATEWAY_TEST_IMAP_ADDR=127.0.0.1:1143 GATEWAY_TEST_IMAP_BASIC_ADDR=127.0.0.1:1144 \
        GATEWAY_TEST_SMTP_ADDR=127.0.0.1:1025 GATEWAY_TEST_MAILPIT_URL=http://127.0.0.1:8025
@@ -416,7 +414,7 @@ go test ./...
 docker compose -f docker-compose.test.yml down -v
 ```
 
-PowerShell: set the same variables with `$env:GATEWAY_TEST_IMAP_ADDR = "127.0.0.1:1143"` and so on. CI (`.github/workflows/gateway.yml`) starts the same compose file and runs `go test -race ./...` with these variables.
+PowerShell: set the same variables with `$env:GATEWAY_TEST_IMAP_ADDR = "127.0.0.1:1143"` and so on. CI (`.github/workflows/ci.yml`) starts the same compose file and runs `go test -race ./...` with these variables.
 
 | Server | Port | What it is |
 | --- | --- | --- |
@@ -439,4 +437,4 @@ Test helpers in `pkg/` (imported by tests only):
 
 ### Releases
 
-Gateway versions are dated like the app (`YYYY.M.N`) but independent of it. Release with an annotated tag `gateway-vYYYY.M.N`; `.github/workflows/gateway.yml` publishes the images. The gateway never creates a GitHub Release, because the desktop and Android updaters read `releases/latest`. Label gateway PRs `gateway` so they stay out of the app's release notes.
+Versions are dated (`YYYY.M.N`, the `N`th release of that month, from 0) and independent of the czlmail client's. Release with an annotated tag `vYYYY.M.N` whose message is the release notes; `.github/workflows/ci.yml` tests, publishes the images (`YYYY.M.N`, `YYYY.M`, `latest`) and creates the GitHub Release from the tag message. Tags with a suffix (`v2026.12.0-rc.1`) publish only `YYYY.M.N-suffix` and a pre-release. Every push to `main` publishes `edge` and `sha-<7>`.

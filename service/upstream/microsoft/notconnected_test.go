@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 func TestNotConnectedRetriesThenAuthRequired(t *testing.T) {

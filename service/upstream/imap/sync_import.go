@@ -5,8 +5,8 @@ import (
 	"errors"
 	"slices"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 // orphanMatcher finds the orphan a newly seen message continues: the same stable

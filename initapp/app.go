@@ -10,17 +10,17 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/config"
-	"github.com/woodchen-ink/czlmail/gateway/cron"
-	"github.com/woodchen-ink/czlmail/gateway/handler"
-	"github.com/woodchen-ink/czlmail/gateway/middleware"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/router"
-	"github.com/woodchen-ink/czlmail/gateway/service"
-	"github.com/woodchen-ink/czlmail/gateway/service/mail"
-	"github.com/woodchen-ink/czlmail/gateway/service/metrics"
-	"github.com/woodchen-ink/czlmail/gateway/service/submission"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/config"
+	"github.com/woodchen-ink/czlmail-gateway/cron"
+	"github.com/woodchen-ink/czlmail-gateway/handler"
+	"github.com/woodchen-ink/czlmail-gateway/middleware"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/router"
+	"github.com/woodchen-ink/czlmail-gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service/mail"
+	"github.com/woodchen-ink/czlmail-gateway/service/metrics"
+	"github.com/woodchen-ink/czlmail-gateway/service/submission"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // cleanupEvery is how often expired sessions, audit rows and uploads are pruned.

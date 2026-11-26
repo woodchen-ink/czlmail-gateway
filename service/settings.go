@@ -10,9 +10,9 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx"
 )
 
 // Setting keys. Every key is registered in settingDefs with its type and default;

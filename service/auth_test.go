@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 type fakeClock struct {

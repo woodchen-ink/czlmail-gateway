@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service/metrics"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service/metrics"
 )
 
 // Upstream statuses, as in the JMAP account capability https://czl.net/jmap/upstream.

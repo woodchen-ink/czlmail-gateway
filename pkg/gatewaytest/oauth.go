@@ -10,11 +10,11 @@ import (
 
 	"git.sr.ht/~rockorager/go-jmap"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gmailtest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/oauthtest"
-	"github.com/woodchen-ink/czlmail/gateway/service/oauth"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gmailtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/oauthtest"
+	"github.com/woodchen-ink/czlmail-gateway/service/oauth"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Credentials of the OAuth app UseFakeGoogle registers.

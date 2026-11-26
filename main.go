@@ -13,7 +13,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/woodchen-ink/czlmail/gateway/initapp"
+	"github.com/woodchen-ink/czlmail-gateway/initapp"
 )
 
 // version is injected at build time with -ldflags "-X main.version=2026.12.0".

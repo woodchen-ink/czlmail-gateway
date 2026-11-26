@@ -1,0 +1,26 @@
+# Go
+/czlmail-gateway
+/czlmail-gateway.exe
+/gateway
+/gateway.exe
+*.test
+*.out
+
+# 本地数据与凭据
+/data/
+*.sqlite
+*.sqlite-*
+.env
+.env.*
+!.env.example
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 本地开发备注
+CLAUDE.md
+AGENTS.md
+.claude/

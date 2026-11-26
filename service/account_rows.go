@@ -3,7 +3,7 @@ package service
 import (
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // deleteAccountRows removes what gateway.sqlite keeps per JMAP account besides

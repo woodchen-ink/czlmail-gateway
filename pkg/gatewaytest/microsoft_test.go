@@ -10,13 +10,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gmailtest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/oauthtest"
-	"github.com/woodchen-ink/czlmail/gateway/service/oauth"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream/microsoft"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gmailtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/oauthtest"
+	"github.com/woodchen-ink/czlmail-gateway/service/oauth"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream/microsoft"
 )
 
 // microsoftFixture is a gateway whose Microsoft provider points at an oauthtest

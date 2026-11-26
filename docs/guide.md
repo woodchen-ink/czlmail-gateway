@@ -18,7 +18,7 @@
 
 ## 1. What the gateway is
 
-czlmail speaks only JMAP, so on its own it connects to JMAP servers such as Stalwart. The czlmail gateway is a translation service you host yourself: it signs in to your Gmail, Microsoft 365 / Outlook.com and any IMAP + SMTP mailbox (Fastmail, iCloud, Yahoo, your own mail server and so on), and serves them to czlmail as a JMAP server. czlmail needs no protocol adapters; it signs in to the gateway and sends and receives mail for all of those mailboxes.
+[czlmail](https://github.com/woodchen-ink/czlmail) speaks only JMAP, so on its own it connects to JMAP servers such as Stalwart. The czlmail gateway is a translation service you host yourself: it signs in to your Gmail, Microsoft 365 / Outlook.com and any IMAP + SMTP mailbox (Fastmail, iCloud, Yahoo, your own mail server and so on), and serves them to czlmail as a JMAP server. czlmail needs no protocol adapters; it signs in to the gateway and sends and receives mail for all of those mailboxes.
 
 It is for people whose mail is not on Stalwart and who want to use czlmail, especially with several mailboxes, or with mailboxes that can only be reached through a proxy.
 

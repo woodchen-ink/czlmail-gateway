@@ -19,8 +19,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // Object types of the changelog and states.

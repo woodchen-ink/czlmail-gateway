@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream/microsoft"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream/microsoft"
 )
 
 // Microsoft 365 and Outlook.com: IMAP and SMTP with XOAUTH2 against Exchange

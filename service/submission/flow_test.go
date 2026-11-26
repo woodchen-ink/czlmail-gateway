@@ -10,8 +10,8 @@ import (
 	"git.sr.ht/~rockorager/go-jmap/mail/email"
 	"git.sr.ht/~rockorager/go-jmap/mail/emailsubmission"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gatewaytest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/smtptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gatewaytest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/smtptest"
 )
 
 // The czlmail send flow (desktop/internal/syncer/compose.go) in one request:

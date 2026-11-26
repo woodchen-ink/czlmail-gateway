@@ -5,7 +5,7 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/middleware"
+	"github.com/woodchen-ink/czlmail-gateway/middleware"
 )
 
 // ListAppPasswords: GET /api/admin/app-passwords — the signed-in user's devices.

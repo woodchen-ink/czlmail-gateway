@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
 )
 
 // idleConnTTL: a pooled connection unused for longer is closed rather than reused;

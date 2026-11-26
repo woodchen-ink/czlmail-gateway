@@ -18,7 +18,7 @@
 
 ## 1. 网关是什么
 
-czlmail 只说 JMAP 协议, 原本只能连 Stalwart 这类 JMAP 邮件服务器。czlmail 网关是一个自己部署的转换服务: 它登录你的 Gmail、Microsoft 365 / Outlook.com 和任何支持 IMAP + SMTP 的邮箱 (QQ、163、iCloud、自建邮局等), 再以 JMAP 服务器的身份提供给 czlmail。czlmail 这边不做任何协议适配, 只要登录网关就能收发这些邮箱的邮件。
+[czlmail](https://github.com/woodchen-ink/czlmail) 只说 JMAP 协议, 原本只能连 Stalwart 这类 JMAP 邮件服务器。czlmail 网关是一个自己部署的转换服务: 它登录你的 Gmail、Microsoft 365 / Outlook.com 和任何支持 IMAP + SMTP 的邮箱 (QQ、163、iCloud、自建邮局等), 再以 JMAP 服务器的身份提供给 czlmail。czlmail 这边不做任何协议适配, 只要登录网关就能收发这些邮箱的邮件。
 
 适合邮箱不在 Stalwart 上、又想用 czlmail 的人, 尤其是手上有好几个邮箱、或者连某些邮箱要走代理 (例如在国内连 Gmail) 的情况。
 

@@ -11,7 +11,7 @@ import (
 
 	"git.sr.ht/~rockorager/go-jmap"
 
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 type fakeUpstreams struct{ owner map[string]string } // account id → owner public id

@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx/netxtest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/smtptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx/netxtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/smtptest"
 )
 
 type upstreamCap struct {

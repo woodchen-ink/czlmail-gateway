@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
 )
 
 const relatedMessage = "From: a@example.test\r\nSubject: =?utf-8?q?Gr=C3=BC=C3=9Fe?=\r\nX-Folded: one\r\n two\r\n" +

@@ -4,7 +4,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
 )
 
 // specialUse maps RFC 6154 attributes to JMAP roles.

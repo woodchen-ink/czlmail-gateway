@@ -13,12 +13,12 @@ import (
 
 	goimap "github.com/emersion/go-imap/v2"
 
-	"github.com/woodchen-ink/czlmail/gateway/initapp"
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/gatewaytest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/smtptest"
-	"github.com/woodchen-ink/czlmail/gateway/service/submission"
+	"github.com/woodchen-ink/czlmail-gateway/initapp"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/gatewaytest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/smtptest"
+	"github.com/woodchen-ink/czlmail-gateway/service/submission"
 )
 
 const (

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
 )
 
 // The watcher still reports changes after a long quiet spell. Opt-in

@@ -5,8 +5,8 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/middleware"
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/middleware"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 func actor(r *http.Request) *service.AdminPrincipal { return middleware.Principal(r.Context()) }

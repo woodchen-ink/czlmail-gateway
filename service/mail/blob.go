@@ -6,8 +6,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Blob ids of stored mail: m<emailId> is the whole message, p<emailId>.<section>

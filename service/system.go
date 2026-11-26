@@ -12,8 +12,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/woodchen-ink/czlmail/gateway/config"
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/config"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // MetaMasterKeyBackupConfirmed records when an admin confirmed the master key is backed up.

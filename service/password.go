@@ -1,6 +1,6 @@
 package service
 
-import "github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
+import "github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
 
 func hashPassword(p string) (string, error) { return crypto.HashPassword(p) }
 

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"slices"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // setError is a JMAP SetError with optional extra members.

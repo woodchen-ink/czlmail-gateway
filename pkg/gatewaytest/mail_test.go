@@ -18,7 +18,7 @@ import (
 	"git.sr.ht/~rockorager/go-jmap/mail/mailbox"
 	imapv2 "github.com/emersion/go-imap/v2"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imaptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imaptest"
 )
 
 // The properties czlmail's syncer asks for (desktop/internal/syncer/mail.go, body.go).

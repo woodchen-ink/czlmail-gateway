@@ -1,0 +1,187 @@
+# Test on PRs, publish the Docker image to ghcr.io, create GitHub Releases.
+#   push to main          -> :edge and :sha-<7>
+#   tag vYYYY.M.N         -> :YYYY.M.N, :YYYY.M and :latest + GitHub Release (notes = tag message)
+#   tag vYYYY.M.N-suffix  -> :YYYY.M.N-suffix + GitHub pre-release
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  IMAGE: ghcr.io/woodchen-ink/czlmail-gateway
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+      - run: go vet ./...
+      # Dovecot (full and fallback tiers) and Mailpit from docker-compose.test.yml.
+      # Compose rather than service containers: services start before checkout and
+      # cannot mount the repo's test configs.
+      - name: Start test servers
+        run: |
+          docker compose -f docker-compose.test.yml up -d
+          for port in 1143 1144 1025 8025; do
+            timeout 60 bash -c "until (echo > /dev/tcp/127.0.0.1/$port) 2>/dev/null; do sleep 1; done"
+          done
+      - run: go test -race ./...
+        env:
+          GATEWAY_TEST_IMAP_ADDR: 127.0.0.1:1143
+          GATEWAY_TEST_IMAP_BASIC_ADDR: 127.0.0.1:1144
+          GATEWAY_TEST_SMTP_ADDR: 127.0.0.1:1025
+          GATEWAY_TEST_MAILPIT_URL: http://127.0.0.1:8025
+      - name: Test server logs
+        if: failure()
+        run: docker compose -f docker-compose.test.yml logs
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run i18n:check
+      - run: npm run build
+
+  image:
+    needs: [test, web]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      release: ${{ steps.meta.outputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version and tags
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          push=true
+          release=false
+          case "$GITHUB_EVENT_NAME:$GITHUB_REF" in
+            push:refs/tags/v*)
+              version="${GITHUB_REF_NAME#v}"
+              if ! [[ "$version" =~ ^[0-9]{4}\.[0-9]{1,2}\.[0-9]+(-[0-9A-Za-z.]+)?$ ]]; then
+                echo "::error::tag $GITHUB_REF_NAME is not vYYYY.M.N"; exit 1
+              fi
+              tags="$IMAGE:$version"
+              if [[ "$version" != *-* ]]; then
+                tags="$tags,$IMAGE:${version%.*},$IMAGE:latest"
+              fi
+              release=true ;;
+            push:refs/heads/main)
+              version="edge-${GITHUB_SHA::7}"
+              tags="$IMAGE:edge,$IMAGE:sha-${GITHUB_SHA::7}" ;;
+            workflow_dispatch:*)
+              version="manual-${GITHUB_SHA::7}"
+              tags="$IMAGE:manual-${GITHUB_SHA::7}" ;;
+            *)
+              version="pr-${GITHUB_SHA::7}"
+              tags="$IMAGE:pr"
+              push=false ;;
+          esac
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tags=$tags" >> "$GITHUB_OUTPUT"
+          echo "push=$push" >> "$GITHUB_OUTPUT"
+          echo "release=$release" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        if: steps.meta.outputs.push == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: ${{ steps.meta.outputs.push == 'true' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: VERSION=${{ steps.meta.outputs.version }}
+          labels: |
+            org.opencontainers.image.title=czlmail-gateway
+            org.opencontainers.image.description=Self-hosted gateway that serves Gmail, Microsoft 365 / Outlook.com and IMAP mailboxes over JMAP
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.url=https://github.com/${{ github.repository }}
+            org.opencontainers.image.version=${{ steps.meta.outputs.version }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.licenses=AGPL-3.0-only
+          cache-from: type=gha,scope=gateway
+          cache-to: type=gha,scope=gateway,mode=max
+
+  release:
+    needs: image
+    if: needs.image.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Release notes from the tag message
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+          if [ "$(git cat-file -t "$TAG")" = "tag" ]; then
+            git tag -l --format='%(contents)' "$TAG" | sed '/-----BEGIN PGP SIGNATURE-----/,$d' > notes.md
+          else
+            echo "::warning::${TAG} is a lightweight tag without notes; listing the commits instead. Use git tag -a ${TAG} -F notes.md"
+            prev=$(git describe --tags --abbrev=0 --match 'v*' "${TAG}^" 2>/dev/null || true)
+            range="$TAG -20"; [ -n "$prev" ] && range="${prev}..${TAG}"
+            git log --no-merges --format='- %s' $range > notes.md
+          fi
+          version="${TAG#v}"
+          {
+            echo
+            echo "**Image:** \`ghcr.io/woodchen-ink/czlmail-gateway:${version}\` (linux/amd64, linux/arm64)"
+          } >> notes.md
+          cat notes.md
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          flags=(--verify-tag --title "$TAG" --notes-file notes.md)
+          [[ "$TAG" == *-* ]] && flags+=(--prerelease)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TAG" --notes-file notes.md
+          else
+            gh release create "$TAG" "${flags[@]}"
+          fi

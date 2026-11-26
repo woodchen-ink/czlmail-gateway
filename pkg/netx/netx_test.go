@@ -8,8 +8,8 @@ import (
 	"net/netip"
 	"testing"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx/netxtest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx/netxtest"
 )
 
 func echoServer(t *testing.T) string {

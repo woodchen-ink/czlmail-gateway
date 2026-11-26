@@ -1,4 +1,4 @@
-module github.com/woodchen-ink/czlmail/gateway
+module github.com/woodchen-ink/czlmail-gateway
 
 go 1.26.0
 

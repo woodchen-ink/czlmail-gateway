@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/smtptest"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/smtptest"
 )
 
 // The gateway strategy: Mailpit gets the message without Bcc and with the right

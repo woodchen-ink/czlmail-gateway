@@ -12,16 +12,16 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/crypto"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/jmapserver"
-	"github.com/woodchen-ink/czlmail/gateway/pkg/netx"
-	"github.com/woodchen-ink/czlmail/gateway/service/mailindex"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/crypto"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/jmapserver"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/netx"
+	"github.com/woodchen-ink/czlmail-gateway/service/mailindex"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 
 	// Upstream kinds register themselves.
-	_ "github.com/woodchen-ink/czlmail/gateway/service/upstream/imap"
-	_ "github.com/woodchen-ink/czlmail/gateway/service/upstream/microsoft"
+	_ "github.com/woodchen-ink/czlmail-gateway/service/upstream/imap"
+	_ "github.com/woodchen-ink/czlmail-gateway/service/upstream/microsoft"
 )
 
 // Changelog retention (the JMAP state window).

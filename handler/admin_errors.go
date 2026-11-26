@@ -7,10 +7,10 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/resputil"
 
-	"github.com/woodchen-ink/czlmail/gateway/cron"
-	"github.com/woodchen-ink/czlmail/gateway/middleware"
-	"github.com/woodchen-ink/czlmail/gateway/service"
-	"github.com/woodchen-ink/czlmail/gateway/service/submission"
+	"github.com/woodchen-ink/czlmail-gateway/cron"
+	"github.com/woodchen-ink/czlmail-gateway/middleware"
+	"github.com/woodchen-ink/czlmail-gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service/submission"
 )
 
 // apiError is a public error: HTTP status, five-digit code (status + sequence) and a

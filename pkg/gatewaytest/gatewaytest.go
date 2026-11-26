@@ -31,9 +31,9 @@ import (
 	"git.sr.ht/~rockorager/go-jmap"
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/config"
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/initapp"
+	"github.com/woodchen-ink/czlmail-gateway/config"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/initapp"
 )
 
 // Owner credentials of every test gateway (admin login, not JMAP).

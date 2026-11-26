@@ -9,10 +9,10 @@ import (
 
 	"github.com/woodchen-ink/go-web-utils/cookieutil"
 
-	"github.com/woodchen-ink/czlmail/gateway/cron"
-	"github.com/woodchen-ink/czlmail/gateway/middleware"
-	"github.com/woodchen-ink/czlmail/gateway/service"
-	"github.com/woodchen-ink/czlmail/gateway/service/submission"
+	"github.com/woodchen-ink/czlmail-gateway/cron"
+	"github.com/woodchen-ink/czlmail-gateway/middleware"
+	"github.com/woodchen-ink/czlmail-gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/service/submission"
 )
 
 // Admin serves /api/admin/: setup, sign-in, the signed-in user, app passwords,

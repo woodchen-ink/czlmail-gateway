@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/woodchen-ink/czlmail/gateway/pkg/imapc"
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/pkg/imapc"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Google: IMAP with XOAUTH2 for reading, the Gmail API for sending. The one

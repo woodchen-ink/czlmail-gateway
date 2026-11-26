@@ -10,9 +10,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/config"
-	"github.com/woodchen-ink/czlmail/gateway/database"
-	"github.com/woodchen-ink/czlmail/gateway/service"
+	"github.com/woodchen-ink/czlmail-gateway/config"
+	"github.com/woodchen-ink/czlmail-gateway/database"
+	"github.com/woodchen-ink/czlmail-gateway/service"
 )
 
 // EnvOldMasterKey carries the previous master key during `gateway rotate-key`.

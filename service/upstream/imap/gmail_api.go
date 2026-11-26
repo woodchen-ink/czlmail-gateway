@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/woodchen-ink/czlmail/gateway/service/upstream"
+	"github.com/woodchen-ink/czlmail-gateway/service/upstream"
 )
 
 // Gmail API limits.

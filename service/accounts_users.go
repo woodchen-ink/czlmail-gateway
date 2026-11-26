@@ -3,7 +3,7 @@ package service
 import (
 	"gorm.io/gorm"
 
-	"github.com/woodchen-ink/czlmail/gateway/model"
+	"github.com/woodchen-ink/czlmail-gateway/model"
 )
 
 // UserPatch is a validated partial update; nil fields stay unchanged.
