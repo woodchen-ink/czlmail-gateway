@@ -129,11 +129,11 @@ func (s *Server) Session(w http.ResponseWriter, r *http.Request) {
 	sess, err := s.loadSession(r.Context(), userID)
 	if err != nil {
 		s.log.Error("load session", "trace_id", s.traceID(r.Context()), "user", userID, "err", err)
-		writeProblem(w, problemInternal())
+		s.writeProblem(w, r, problemInternal())
 		return
 	}
 	if len(sess.Accounts) == 0 {
-		writeProblem(w, problemNoUpstream(s.opts.BaseURL))
+		s.writeProblem(w, r, problemNoUpstream(s.opts.BaseURL))
 		return
 	}
 	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
@@ -158,12 +158,12 @@ func (s *Server) authenticateCredential(w http.ResponseWriter, r *http.Request) 
 	}
 	if rl, ok := errors.AsType[RetryAfterError](err); ok {
 		w.Header().Set("Retry-After", strconv.Itoa(rl.RetryAfterSeconds()))
-		writeProblem(w, problemTooManyRequests())
+		s.writeProblem(w, r, problemTooManyRequests())
 		return "", "", false
 	}
 	if err != nil || userID == "" {
 		w.Header().Set("WWW-Authenticate", `Basic realm="czlmail gateway", charset="UTF-8"`)
-		writeProblem(w, problemUnauthorized())
+		s.writeProblem(w, r, problemUnauthorized())
 		return "", "", false
 	}
 	return userID, credentialID, true

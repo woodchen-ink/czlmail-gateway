@@ -281,6 +281,7 @@ Gmail signs in with OAuth: mail is read over IMAP and sent through the Gmail API
 
 - Labels are folders, and a message can be in several. Inbox, Sent and Drafts are Gmail's system labels; your own labels keep their hierarchy; mail without any label is in **Archive**.
 - Starred is czlmail's flag; Important and the inbox categories are not shown.
+- New mail arrives within seconds, but a star added or removed in Gmail (on the web, on the phone) reaches czlmail only after 20 to 30 seconds. Gmail itself reports flag changes that late on IMAP; the gateway syncs about a second after Gmail reports them.
 - Moving a message changes its labels and archiving removes only the Inbox label. Deleting moves it to Gmail's Trash, and restoring from Trash brings the labels back.
 - Search uses Gmail's own search.
 - Sending identities are the addresses under Gmail's Settings → Accounts → **Send mail as**, refreshed every 6 hours; edit them in Gmail.

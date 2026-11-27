@@ -79,6 +79,26 @@ type env struct {
 	ts       *httptest.Server
 	accounts *accounts
 	dataDir  string
+	// logs collects the server's log lines (JSON, one per line).
+	logs *lockedBuffer
+}
+
+// lockedBuffer is a bytes.Buffer safe for the server's concurrent log writes.
+type lockedBuffer struct {
+	mu  sync.Mutex
+	buf bytes.Buffer
+}
+
+func (b *lockedBuffer) Write(p []byte) (int, error) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	return b.buf.Write(p)
+}
+
+func (b *lockedBuffer) String() string {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	return b.buf.String()
 }
 
 // newEnv serves a Server the way the gateway router mounts it, with user alice
@@ -91,9 +111,10 @@ func newEnv(t *testing.T, debounce time.Duration) *env {
 
 	acc := &accounts{users: map[string]*jmapserver.UserSession{"usr_alice": aliceSession(jmapserver.UpstreamOK)}}
 	dir := t.TempDir()
+	logs := &lockedBuffer{}
 	srv, err := jmapserver.New(jmapserver.Options{
 		BaseURL: ts.URL, DataDir: dir, Auth: basicAuth{}, Accounts: acc,
-		Log: slog.New(slog.NewJSONHandler(io.Discard, nil)), PushDebounce: debounce,
+		Log: slog.New(slog.NewJSONHandler(logs, nil)), PushDebounce: debounce,
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -109,7 +130,7 @@ func newEnv(t *testing.T, debounce time.Duration) *env {
 	mux.HandleFunc("GET /jmap/download/{accountId}/{blobId}/{name}", srv.Download)
 	mux.HandleFunc("GET /jmap/eventsource", srv.EventSource)
 	handler = mux
-	return &env{t: t, srv: srv, ts: ts, accounts: acc, dataDir: dir}
+	return &env{t: t, srv: srv, ts: ts, accounts: acc, dataDir: dir, logs: logs}
 }
 
 // client is a go-jmap client signed in as user, as czlmail uses it.

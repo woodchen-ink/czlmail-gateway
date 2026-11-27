@@ -46,7 +46,7 @@ func (s *Server) API(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !s.reqs.acquire(userID) {
-		writeProblem(w, problemLimit("maxConcurrentRequests"))
+		s.writeProblem(w, r, problemLimit("maxConcurrentRequests"))
 		return
 	}
 	defer s.reqs.release(userID)
@@ -54,24 +54,24 @@ func (s *Server) API(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, MaxSizeRequest))
 	if err != nil {
 		if _, tooBig := errors.AsType[*http.MaxBytesError](err); tooBig {
-			writeProblem(w, problemLimit("maxSizeRequest"))
+			s.writeProblem(w, r, problemLimit("maxSizeRequest"))
 			return
 		}
 		return // the client went away
 	}
 	req, p := parseRequest(body)
 	if p != nil {
-		writeProblem(w, *p)
+		s.writeProblem(w, r, *p)
 		return
 	}
 	if p := s.checkUsing(req.using); p != nil {
-		writeProblem(w, *p)
+		s.writeProblem(w, r, *p)
 		return
 	}
 	sess, err := s.loadSession(r.Context(), userID)
 	if err != nil {
 		s.log.Error("load session", "trace_id", s.traceID(r.Context()), "user", userID, "err", err)
-		writeProblem(w, problemInternal())
+		s.writeProblem(w, r, problemInternal())
 		return
 	}
 

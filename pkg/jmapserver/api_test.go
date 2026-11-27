@@ -183,6 +183,11 @@ func TestConcurrentRequestLimit(t *testing.T) {
 	if p := problemOf(t, body); status != http.StatusBadRequest || p["limit"] != "maxConcurrentRequests" {
 		t.Fatalf("fifth request: %d %s", status, body)
 	}
+	// The refusal is in the log with its cause, not only as a request line.
+	if !logged(e.logs.String(), map[string]any{"msg": "jmap problem", "status": float64(400),
+		"code": float64(40023), "limit": "maxConcurrentRequests", "path": "/jmap/api"}) {
+		t.Fatalf("limit problem not logged:\n%s", e.logs.String())
+	}
 	// Slots are released afterwards.
 	if status, _, body := e.post(`{"using":["urn:ietf:params:jmap:core"],"methodCalls":[["Core/echo",{},"0"]]}`); status != 200 {
 		t.Fatalf("after release: %d %s", status, body)
@@ -208,4 +213,25 @@ func TestCreatedIDsAndImplicitResponses(t *testing.T) {
 	if top.CreatedIDs["k0"] != "m0" || top.CreatedIDs["k1"] != "m9" {
 		t.Fatalf("createdIds: %v", top.CreatedIDs)
 	}
+}
+
+// logged reports whether a JSON log line has all the given fields.
+func logged(logs string, want map[string]any) bool {
+	for line := range strings.SplitSeq(logs, "\n") {
+		var rec map[string]any
+		if json.Unmarshal([]byte(line), &rec) != nil {
+			continue
+		}
+		match := true
+		for k, v := range want {
+			if rec[k] != v {
+				match = false
+				break
+			}
+		}
+		if match {
+			return true
+		}
+	}
+	return false
 }

@@ -55,11 +55,11 @@ func (s *Server) Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if r.ContentLength > MaxSizeUpload {
-		writeProblem(w, problemUploadTooLarge())
+		s.writeProblem(w, r, problemUploadTooLarge())
 		return
 	}
 	if !s.upl.acquire(userID) {
-		writeProblem(w, problemLimit("maxConcurrentUpload"))
+		s.writeProblem(w, r, problemLimit("maxConcurrentUpload"))
 		return
 	}
 	defer s.upl.release(userID)
@@ -68,12 +68,12 @@ func (s *Server) Upload(w http.ResponseWriter, r *http.Request) {
 	id, meta, err := s.uploads.save(UploadMeta{UserID: userID, AccountID: accountID, Type: ctype}, r.Body)
 	switch {
 	case errors.Is(err, errUploadTooLarge):
-		writeProblem(w, problemUploadTooLarge())
+		s.writeProblem(w, r, problemUploadTooLarge())
 		return
 	case err != nil:
 		if r.Context().Err() == nil {
 			s.log.Error("save upload", "trace_id", s.traceID(r.Context()), "user", userID, "err", err)
-			writeProblem(w, problemInternal())
+			s.writeProblem(w, r, problemInternal())
 		}
 		return
 	}
@@ -94,15 +94,15 @@ func (s *Server) Download(w http.ResponseWriter, r *http.Request) {
 	blob, err := s.openBlob(r.Context(), userID, accountID, blobID)
 	if err != nil {
 		if u, ok := errors.AsType[*UpstreamError](err); ok {
-			writeProblem(w, problemUpstreamUnavailable(u))
+			s.writeProblem(w, r, problemUpstreamUnavailable(u))
 			return
 		}
 		if errors.Is(err, ErrBlobNotFound) {
-			writeProblem(w, problemBlobNotFound())
+			s.writeProblem(w, r, problemBlobNotFound())
 			return
 		}
 		s.log.Error("open blob", "trace_id", s.traceID(r.Context()), "user", userID, "blob", blobID, "err", err)
-		writeProblem(w, problemInternal())
+		s.writeProblem(w, r, problemInternal())
 		return
 	}
 	defer blob.Body.Close()
@@ -154,11 +154,11 @@ func (s *Server) hasAccount(w http.ResponseWriter, r *http.Request, userID, acco
 	sess, err := s.loadSession(r.Context(), userID)
 	if err != nil {
 		s.log.Error("load session", "trace_id", s.traceID(r.Context()), "user", userID, "err", err)
-		writeProblem(w, problemInternal())
+		s.writeProblem(w, r, problemInternal())
 		return false
 	}
 	if _, ok := sess.Accounts[accountID]; !ok {
-		writeProblem(w, problemAccountNotFound())
+		s.writeProblem(w, r, problemAccountNotFound())
 		return false
 	}
 	return true

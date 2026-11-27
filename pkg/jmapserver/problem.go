@@ -2,6 +2,7 @@ package jmapserver
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net/http"
 )
 
@@ -32,7 +33,25 @@ type Problem struct {
 	Upstream *UpstreamError `json:"czlUpstream,omitempty"`
 }
 
-func writeProblem(w http.ResponseWriter, p Problem) {
+// writeProblem answers with p and logs it with the request's trace id, so a
+// client's "HTTP 400" can be matched to its cause in the gateway log. 401 is
+// logged at debug only: clients probe without credentials and reconnect often.
+// The detail names limits, capabilities and parse positions, never message content.
+func (s *Server) writeProblem(w http.ResponseWriter, r *http.Request, p Problem) {
+	level := slog.LevelInfo
+	if p.Status == http.StatusUnauthorized {
+		level = slog.LevelDebug
+	}
+	attrs := []any{"trace_id", s.traceID(r.Context()), "method", r.Method, "path", r.URL.Path,
+		"status", p.Status, "code", p.Code, "type", p.Type, "detail", p.Detail}
+	if p.Limit != "" {
+		attrs = append(attrs, "limit", p.Limit)
+	}
+	s.log.Log(r.Context(), level, "jmap problem", attrs...)
+	writeProblemBody(w, p)
+}
+
+func writeProblemBody(w http.ResponseWriter, p Problem) {
 	w.Header().Set("Content-Type", "application/problem+json")
 	w.Header().Set("Cache-Control", "no-store")
 	w.WriteHeader(p.Status)

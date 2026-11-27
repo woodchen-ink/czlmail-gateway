@@ -27,12 +27,12 @@ func (s *Server) EventSource(w http.ResponseWriter, r *http.Request) {
 	types := parseTypes(q.Get("types"))
 	closeAfter := q.Get("closeafter")
 	if closeAfter != "" && closeAfter != "state" && closeAfter != "no" {
-		writeProblem(w, problemBadQuery("closeafter must be state or no"))
+		s.writeProblem(w, r, problemBadQuery("closeafter must be state or no"))
 		return
 	}
 	ping, err := parsePing(q.Get("ping"))
 	if err != nil {
-		writeProblem(w, problemBadQuery(err.Error()))
+		s.writeProblem(w, r, problemBadQuery(err.Error()))
 		return
 	}
 
